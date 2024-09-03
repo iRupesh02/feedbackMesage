@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -17,8 +17,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { signInSchema } from "@/schemas/signInSchema";
+import { Loader2 } from "lucide-react";
 
 export default function SignInForm() {
+  const [isSubmit , setIsSubmit] = useState(false)
   const router = useRouter();
 
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -31,6 +33,7 @@ export default function SignInForm() {
 
   const { toast } = useToast();
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    setIsSubmit(true)
     const result = await signIn("credentials", {
       redirect: false,
       identifier: data.identifier,
@@ -52,18 +55,18 @@ export default function SignInForm() {
         });
       }
     }
-
+    setIsSubmit(false)
     if (result?.url) {
       router.replace("/dashboard");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-black">
+      <div className="w-full max-w-md  text-white p-8 space-y-8 bg-zinc-900 rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Welcome Back to True Feedback
+          <h1 className="text-2xl font-bold tracking-tight lg:text-4xl mb-6">
+            Welcome Back to Mystery Feedback
           </h1>
           <p className="mb-4">Sign in to continue your secret conversations</p>
         </div>
@@ -75,7 +78,7 @@ export default function SignInForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email/Username</FormLabel>
-                  <Input {...field} />
+                  <Input {...field} className='text-black'/>
                   <FormMessage />
                 </FormItem>
               )}
@@ -86,14 +89,15 @@ export default function SignInForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <Input type="password" {...field} />
+                  <Input type="password" {...field} className='text-black'/>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button className="w-full" type="submit">
-              Sign In
-            </Button>
+             <Button type="submit" disabled={isSubmit} className="text-bold text-white">{isSubmit ? (<>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin text-white" />
+                  Please wait
+                </>):("SignIn")}</Button>
           </form>
         </Form>
         <div className="text-center mt-4">

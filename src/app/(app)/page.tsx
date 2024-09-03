@@ -15,13 +15,13 @@ export default function Home() {
   return (
     <>
       {/* Main content */}
-      <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12 bg-gray-800 text-white">
+      <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12 bg-black text-white">
         <section className="text-center mb-8 md:mb-12">
           <h1 className="text-3xl md:text-5xl font-bold">
             Dive into the World of Anonymous Feedback
           </h1>
           <p className="mt-3 md:mt-4 text-base md:text-lg">
-            Mystry Feedback - Where your identity remains a secret.
+            Mystery Feedback - Where your identity remains a secret.
           </p>
         </section>
 
@@ -33,7 +33,7 @@ export default function Home() {
           <CarouselContent>
             {messages.map((message, index) => (
               <CarouselItem key={index} className="p-4">
-                <Card>
+                <Card className="bg-zinc-900 text-white ">
                   <CardHeader>
                     <CardTitle>{message.title}</CardTitle>
                   </CardHeader>
@@ -54,8 +54,8 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="text-center p-4 md:p-6 bg-gray-900 text-white">
-        © 2023 Mystry Feedback. All rights reserved.
+      <footer className="text-center p-4 md:p-6 bg-zinc-900 text-white">
+        © 2023 Mystery Feedback. All rights reserved.
       </footer>
     </>
   );

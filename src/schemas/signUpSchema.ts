@@ -14,12 +14,7 @@ export const signUpSchema = z.object({
   email: z
     .string()
     .email({ message: "Invalid email address" })
-    // .regex(
-    //   /^[a-zA-Z0-9. _%+-]+@[a-zA-Z0-9. -]+\\.[a-zA-Z]{2,}$/,
-    //   "Email address is not valid"
-    // )
-    // .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
-    // )
+  
     ,
   password: z
     .string()
